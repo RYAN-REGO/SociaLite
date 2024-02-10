@@ -1,20 +1,115 @@
-import type { Config } from "tailwindcss";
+/** @type {import('tailwindcss').Config} */
+//uploadthing config
+import { withUt } from 'uploadthing/tw';
 
-const config: Config = {
+module.exports = withUt({
+  darkMode: ['class'],
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
   ],
   theme: {
+    container: {
+      center: true,
+      padding: '2rem',
+      screens: {
+        '2xl': '1400px',
+      },
+    },
     extend: {
+      colors: {
+        primary: {
+          500: '#624CF5',
+          50: ' #F6F8FD',
+          10 : '#F5F5F5',
+          20 : '#F4F6F8',
+          DEFAULT: '#624CF5',
+          foreground: 'hsl(var(--primary-foreground))',
+        },
+        coral: {
+          500: '#15BF59',
+        },
+
+        grey: {
+          600: '#545454', // Subdued - color name in figma
+          500: '#757575',
+          400: '#AFAFAF', // Disabled - color name in figma
+          50: '#F6F6F6',
+          25 : '#F3F3F3',
+          10 : '#F2F2F2' // White Grey - color name in figma
+        },
+        black: '#000000',
+        white: '#FFFFFF',
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        foreground: 'hsl(var(--foreground))',
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
+        },
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))',
+        },
+        muted: {
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
+        },
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
+        },
+        popover: {
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))',
+        },
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
+        },
+      },
+      fontFamily: {
+        sans: ['var(--font-sans)'],
+        notoSans : ['Noto Sans JP', 'sans-serif'],
+        mulish : ['Mulish', 'sans-serif'],
+        playFairDisplay : ['Playfair Display', 'serif'],
+        slabo : ['Slabo 13px', 'serif'],
+        lora : ['Lora', 'serif']
+      },
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        'dotted-pattern': "url('/assets/images/dotted-pattern.png')",
+        'hero-img': "url('/assets/images/hero.png')",
+      },
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
+      },
+      keyframes: {
+        'accordion-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' },
+        },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' },
+        },
+        blink: {
+          '0%' : {color : 'transparent', height : '0px', width : '3px'},
+          '50%' : {color : 'black', height : '50px', width : '0px'},
+          '100%' : {color : 'transparent', height : '0px', width : '3px'},
+        },
+
+      },
+      animation: {
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
+        'blink' : ' blink 0.8s ease-in-out infinite',
       },
     },
   },
-  plugins: [],
-};
-export default config;
+  plugins: [require('tailwindcss-animate')],
+});
