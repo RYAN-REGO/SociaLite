@@ -1,5 +1,5 @@
 export type createPostParams = {
-    userId : string,
+    userId : string | null,
     post : {
         description : string,
         imageUrl : string

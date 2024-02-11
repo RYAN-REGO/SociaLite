@@ -4,7 +4,6 @@
 // import { FileUploader } from './FileUploader'
 // import { useUploadThing } from '@/lib/uploadthing'
 
-
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -32,11 +31,10 @@ import { useRouter } from "next/navigation";
 import { createPost } from "@/lib/actions/post.actions";
 
 type PostFormProps = {
-  userId : string | null
-}
+  userId: string | null;
+};
 
-const PostForm = ({userId} : PostFormProps) => {
-  
+const PostForm = ({ userId }: PostFormProps) => {
   const [files, setFiles] = useState<File[]>([]);
   const { startUpload } = useUploadThing("imageUploader");
   const router = useRouter();
@@ -62,8 +60,8 @@ const PostForm = ({userId} : PostFormProps) => {
     }
     // console.log(values);
 
-
-      try {
+    try {
+      if (userId != null) {
         const newPost = await createPost({
           post: { ...values, imageUrl: uploadedImageUrl },
           userId,
@@ -74,10 +72,10 @@ const PostForm = ({userId} : PostFormProps) => {
           form.reset();
           router.push(`/`);
         }
-      } catch (error) {
-        console.log(error);
       }
-
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   //.............................-----------------------------------------////////////////////
@@ -98,7 +96,7 @@ const PostForm = ({userId} : PostFormProps) => {
                 <FormControl>
                   <Textarea
                     placeholder="Description"
-                    className="tracking-wider font-[16px] h-[50vh] rounded-2xl"
+                    className="tracking-wider font-[16px] h-[30vh] rounded-2xl"
                     {...field}
                   />
                 </FormControl>
@@ -144,24 +142,3 @@ const PostForm = ({userId} : PostFormProps) => {
 };
 
 export default PostForm;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
